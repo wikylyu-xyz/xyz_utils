@@ -29,7 +29,7 @@ class HttpConfig {
 
 xyzInit(AdmobConfig adconfig, HttpConfig httpconfig) async {
   await SharedPreferencesService.init();
-  initAdMob(adconfig.bannerAdID, adconfig.openAdID, adconfig.keywords);
+  await initAdmob(adconfig.bannerAdID, adconfig.openAdID, adconfig.keywords);
   initHttp(
       httpconfig.scheme, httpconfig.port, httpconfig.host, httpconfig.prefix);
 }

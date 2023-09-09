@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:xyz_utils/http/config.dart';
@@ -97,7 +98,8 @@ Future<dynamic> apiget(String path, {Map<String, dynamic>? queryParams}) async {
     r = await _client.get(uri, headers: {
       'User-Agent': await getUserAgent(),
     }).timeout(const Duration(minutes: 5));
-  } catch (e) {
+  } catch (e, s) {
+    debugPrintStack(stackTrace: s);
     ToastService.error('Network Error');
     rethrow;
   }
@@ -122,7 +124,8 @@ Future<dynamic> apipost(String path, {Map<String, dynamic>? body}) async {
           body: jsonEncode(body),
         )
         .timeout(const Duration(minutes: 5));
-  } catch (_) {
+  } catch (e, s) {
+    debugPrintStack(stackTrace: s);
     ToastService.error('Network Error');
     rethrow;
   }
@@ -145,7 +148,8 @@ Future<dynamic> apiput(String path, {Map<String, dynamic>? body}) async {
           body: jsonEncode(body),
         )
         .timeout(const Duration(minutes: 5));
-  } catch (e) {
+  } catch (e, s) {
+    debugPrintStack(stackTrace: s);
     ToastService.error('Network Error');
     rethrow;
   }
@@ -161,7 +165,8 @@ Future<dynamic> apidelete(String path,
     r = await _client.delete(uri, headers: {
       'User-Agent': await getUserAgent(),
     }).timeout(const Duration(minutes: 5));
-  } catch (e) {
+  } catch (e, s) {
+    debugPrintStack(stackTrace: s);
     ToastService.error('Network Error');
     rethrow;
   }

@@ -12,3 +12,5 @@ and the Flutter guide for
 -->
 
 # XYZ_UTILS
+
+This package is for my personal use, wrapping some common packages.

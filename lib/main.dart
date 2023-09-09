@@ -16,7 +16,7 @@ class AdmobConfig {
 
 class HttpConfig {
   final String scheme;
-  final int port;
+  final int? port;
   final String host;
   final String prefix;
   const HttpConfig({

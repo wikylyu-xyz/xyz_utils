@@ -3,7 +3,7 @@ int? httpPort = 80;
 String httpHost = '';
 String apiPrefix = '/api';
 
-initHttp(String scheme, int? port, String host, String prefix) {
+initHttp(String scheme, int? port, String host, String prefix) async {
   httpScheme = scheme;
   httpPort = port;
   httpHost = host;

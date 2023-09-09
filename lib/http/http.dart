@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:http/http.dart' as http;
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:xyz_utils/http/config.dart';
 import 'package:xyz_utils/toast.dart';
 
@@ -84,11 +85,18 @@ dynamic handleResponse(http.Response r) {
 
 final _client = http.Client();
 
+Future<String> getUserAgent() async {
+  final pinfo = await PackageInfo.fromPlatform();
+  return '${pinfo.appName} ${pinfo.version}';
+}
+
 Future<dynamic> apiget(String path, {Map<String, dynamic>? queryParams}) async {
   final uri = apiuri(path, queryParams: queryParams);
   http.Response r;
   try {
-    r = await _client.get(uri, headers: {}).timeout(const Duration(minutes: 5));
+    r = await _client.get(uri, headers: {
+      'User-Agent': await getUserAgent(),
+    }).timeout(const Duration(minutes: 5));
   } catch (e) {
     ToastService.error('Network Error');
     rethrow;
@@ -102,11 +110,14 @@ Future<dynamic> apipost(String path, {Map<String, dynamic>? body}) async {
   http.Response r;
 
   try {
+    final pinfo = await PackageInfo.fromPlatform();
+
     r = await _client
         .post(
           uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
+            'User-Agent': await getUserAgent(),
           },
           body: jsonEncode(body),
         )
@@ -129,6 +140,7 @@ Future<dynamic> apiput(String path, {Map<String, dynamic>? body}) async {
           uri,
           headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
+            'User-Agent': await getUserAgent(),
           },
           body: jsonEncode(body),
         )
@@ -146,11 +158,9 @@ Future<dynamic> apidelete(String path,
   final uri = apiuri(path, queryParams: queryParams);
   http.Response r;
   try {
-    r = await _client
-        .delete(
-          uri,
-        )
-        .timeout(const Duration(minutes: 5));
+    r = await _client.delete(uri, headers: {
+      'User-Agent': await getUserAgent(),
+    }).timeout(const Duration(minutes: 5));
   } catch (e) {
     ToastService.error('Network Error');
     rethrow;

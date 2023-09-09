@@ -21,6 +21,8 @@ dependencies:
   http: ^1.1.0
   chewie: ^1.7.0
   video_player: ^2.7.1
+  package_info_plus: ^4.1.0
+
 
 
 dev_dependencies:

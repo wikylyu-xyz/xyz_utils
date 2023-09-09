@@ -87,7 +87,7 @@ final _client = http.Client();
 
 Future<String> getUserAgent() async {
   final pinfo = await PackageInfo.fromPlatform();
-  return '${pinfo.appName} ${pinfo.version}';
+  return '${Platform.operatingSystem}/${Platform.operatingSystemVersion} - ${pinfo.appName} ${pinfo.version}/${pinfo.buildNumber}';
 }
 
 Future<dynamic> apiget(String path, {Map<String, dynamic>? queryParams}) async {

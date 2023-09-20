@@ -76,10 +76,13 @@ class _PhotoViewerPageState extends State<PhotoViewerPage> {
             ),
           ),
           Positioned(
-            top: MediaQuery.of(context).viewPadding.top,
+            top: Theme.of(context).useMaterial3
+                ? MediaQuery.of(context).viewPadding.top
+                : 0,
             left: 0,
             right: 0,
             child: AppBar(
+              elevation: 0,
               backgroundColor: Colors.transparent,
               title: Text('${index + 1} / ${urls.length}'),
               actions: [

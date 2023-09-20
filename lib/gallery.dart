@@ -14,7 +14,7 @@ downloadImage(String url) async {
     final result =
         await ImageGallerySaver.saveFile(savePath, isReturnPathOfIOS: true);
     if (result != null) {
-      ToastService.info("Downloaded");
+      ToastService.info("Saved");
     }
   } catch (e, s) {
     ToastService.warn("Failed");

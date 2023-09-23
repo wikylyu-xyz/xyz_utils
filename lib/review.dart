@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:in_app_review/in_app_review.dart';
 import 'package:xyz_utils/sharedpref.dart';
+import 'package:xyz_utils/toast.dart';
 
 final InAppReview inAppReview = InAppReview.instance;
 
@@ -20,4 +21,8 @@ checkAndRequestReview({int openCount = 8}) async {
     }
   }
   SharedPreferencesService.prefs.setInt("open_count", count + 1);
+}
+
+openStoreListing() async {
+  inAppReview.openStoreListing();
 }

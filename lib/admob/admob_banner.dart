@@ -14,7 +14,7 @@ class AdmobBanner extends StatefulWidget {
 
 class _AdmobBannerState extends State<AdmobBanner> {
   AdManagerBannerAd? adBanner;
-  bool loaded = false;
+  bool isLoaded = false;
 
   @override
   void initState() {
@@ -23,13 +23,13 @@ class _AdmobBannerState extends State<AdmobBanner> {
     if (AdmobManager.isEnabled()) {
       adBanner = AdManagerBannerAd(
         adUnitId: bannerAdID,
-        sizes: [AdSize.fullBanner],
+        sizes: [AdSize.banner],
         request: AdManagerAdRequest(
           keywords: adKeywords,
         ),
         listener: AdManagerBannerAdListener(
           onAdLoaded: (ad) => setState(() {
-            loaded = true;
+            isLoaded = true;
           }),
           onAdFailedToLoad: (ad, error) => ad.dispose(),
         ),
@@ -45,15 +45,15 @@ class _AdmobBannerState extends State<AdmobBanner> {
 
   @override
   Widget build(BuildContext context) {
-    if (adBanner == null || !loaded) {
+    if (adBanner == null) {
       return Container();
     }
     return Container(
       margin: const EdgeInsets.only(top: 5, bottom: 5),
       alignment: Alignment.center,
-      width: AdSize.fullBanner.width.toDouble(),
-      height: AdSize.fullBanner.height.toDouble(),
-      child: AdWidget(ad: adBanner!),
+      width: double.infinity,
+      height: AdSize.banner.height.toDouble(),
+      child: isLoaded ? AdWidget(ad: adBanner!) : null,
     );
   }
 }

@@ -12,7 +12,6 @@ class AdmobAdaptiveBanner extends StatefulWidget {
 
 class _AdmobAdaptiveBannerState extends State<AdmobAdaptiveBanner> {
   BannerAd? _anchoredAdaptiveAd;
-  AnchoredAdaptiveBannerAdSize? _adSize;
   bool _isLoaded = false;
 
   @override
@@ -24,17 +23,17 @@ class _AdmobAdaptiveBannerState extends State<AdmobAdaptiveBanner> {
   }
 
   Future<void> _loadAd() async {
-    _adSize = await AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(
+    final size = await AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(
         MediaQuery.of(context).size.width.truncate());
 
-    if (_adSize == null) {
+    if (size == null) {
       debugPrint('Unable to get height of anchored banner.');
       return;
     }
 
     _anchoredAdaptiveAd = BannerAd(
       adUnitId: bannerAdID,
-      size: _adSize!,
+      size: size,
       request: AdManagerAdRequest(
         keywords: adKeywords,
       ),
@@ -57,14 +56,14 @@ class _AdmobAdaptiveBannerState extends State<AdmobAdaptiveBanner> {
 
   @override
   Widget build(BuildContext context) {
-    if (_anchoredAdaptiveAd == null || _adSize == null) {
+    if (_anchoredAdaptiveAd == null) {
       return Container();
     }
     return Container(
       margin: const EdgeInsets.only(top: 5, bottom: 5),
       alignment: Alignment.center,
-      width: _adSize!.width.toDouble(),
-      height: _adSize!.height.toDouble(),
+      width: _anchoredAdaptiveAd!.size.width.toDouble(),
+      height: _anchoredAdaptiveAd!.size.height.toDouble(),
       child: _isLoaded ? AdWidget(ad: _anchoredAdaptiveAd!) : null,
     );
   }

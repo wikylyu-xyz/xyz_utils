@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:xyz_utils/admob/admob_manager.dart';
 import 'package:xyz_utils/admob/config.dart';
 
 class AdmobAdaptiveBanner extends StatefulWidget {
@@ -11,27 +12,29 @@ class AdmobAdaptiveBanner extends StatefulWidget {
 
 class _AdmobAdaptiveBannerState extends State<AdmobAdaptiveBanner> {
   BannerAd? _anchoredAdaptiveAd;
+  AnchoredAdaptiveBannerAdSize? _adSize;
   bool _isLoaded = false;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _loadAd();
+    if (AdmobManager.isEnabled()) {
+      _loadAd();
+    }
   }
 
   Future<void> _loadAd() async {
-    final AnchoredAdaptiveBannerAdSize? size =
-        await AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(
-            MediaQuery.of(context).size.width.truncate());
+    _adSize = await AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(
+        MediaQuery.of(context).size.width.truncate());
 
-    if (size == null) {
+    if (_adSize == null) {
       debugPrint('Unable to get height of anchored banner.');
       return;
     }
 
     _anchoredAdaptiveAd = BannerAd(
       adUnitId: bannerAdID,
-      size: size,
+      size: _adSize!,
       request: AdManagerAdRequest(
         keywords: adKeywords,
       ),
@@ -54,14 +57,14 @@ class _AdmobAdaptiveBannerState extends State<AdmobAdaptiveBanner> {
 
   @override
   Widget build(BuildContext context) {
-    if (_anchoredAdaptiveAd == null) {
+    if (_anchoredAdaptiveAd == null || _adSize == null) {
       return Container();
     }
     return Container(
       margin: const EdgeInsets.only(top: 5, bottom: 5),
       alignment: Alignment.center,
-      width: _anchoredAdaptiveAd!.size.width.toDouble(),
-      height: _anchoredAdaptiveAd!.size.height.toDouble(),
+      width: _adSize!.width.toDouble(),
+      height: _adSize!.height.toDouble(),
       child: _isLoaded ? AdWidget(ad: _anchoredAdaptiveAd!) : null,
     );
   }

@@ -55,7 +55,9 @@ class XyzImage extends CachedNetworkImage {
     super.maxHeightDiskCache,
   }) : super(
           httpHeaders: {
-            'User-Agent': HttpManager.userAgent,
+            'User-Agent': imageUrl.contains('wikylyu.xyz')
+                ? HttpManager.userAgent
+                : 'Mozilla/5.0 (Macintosh; Intel Mac OS X 14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36',
           },
         );
 }

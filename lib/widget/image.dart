@@ -59,3 +59,19 @@ class XyzImage extends CachedNetworkImage {
           },
         );
 }
+
+class XyzImageProvider extends CachedNetworkImageProvider {
+  XyzImageProvider(
+    super.url, {
+    super.maxHeight,
+    super.maxWidth,
+    super.scale = 1.0,
+    super.errorListener,
+    super.cacheManager,
+    super.cacheKey,
+  }) : super(
+          headers: {
+            'User-Agent': HttpManager.userAgent,
+          },
+        );
+}

@@ -51,6 +51,7 @@ class _AdmobAdaptiveBannerState extends State<AdmobAdaptiveBanner> {
         },
       ),
     );
+    setState(() {});
     return _anchoredAdaptiveAd!.load();
   }
 

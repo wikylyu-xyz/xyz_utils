@@ -23,7 +23,8 @@ class _AdmobAdaptiveBannerState extends State<AdmobAdaptiveBanner> {
 
   Future<void> _loadAd() async {
     final size = await AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(
-        MediaQuery.of(context).size.width.truncate());
+      MediaQuery.of(context).size.width.truncate(),
+    );
 
     if (size == null) {
       debugPrint('Unable to get height of anchored banner.');
@@ -40,7 +41,7 @@ class _AdmobAdaptiveBannerState extends State<AdmobAdaptiveBanner> {
         onAdLoaded: (Ad ad) {
           debugPrint('$ad loaded: ${ad.responseInfo}');
           setState(() {
-            _anchoredAdaptiveAd = ad as BannerAd;
+            // _anchoredAdaptiveAd = ad as BannerAd;
             _isLoaded = true;
           });
         },

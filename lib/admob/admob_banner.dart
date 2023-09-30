@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:xyz_utils/admob/admob_manager.dart';
-import 'package:xyz_utils/admob/config.dart';
 
 class AdmobBanner extends StatefulWidget {
   const AdmobBanner({
@@ -20,12 +19,12 @@ class _AdmobBannerState extends State<AdmobBanner> {
   void initState() {
     super.initState();
 
-    if (AdmobManager.isEnabled()) {
+    if (AdmobManager.isEnabled) {
       adBanner = AdManagerBannerAd(
-        adUnitId: bannerAdID,
+        adUnitId: AdmobManager.bannerID,
         sizes: [AdSize.banner],
         request: AdManagerAdRequest(
-          keywords: adKeywords,
+          keywords: AdmobManager.keywords,
         ),
         listener: AdManagerBannerAdListener(
           onAdLoaded: (ad) => setState(() {

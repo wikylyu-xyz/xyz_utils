@@ -1,16 +1,18 @@
-import 'package:xyz_utils/admob/config.dart';
-import 'package:xyz_utils/http/config.dart';
+import 'package:xyz_utils/admob/admob_manager.dart';
+import 'package:xyz_utils/http/http.dart';
 import 'package:xyz_utils/sharedpref.dart';
 
 class AdmobConfig {
   final String bannerAdID;
   final String openAdID;
   final List<String> keywords;
+  final int openInterval;
 
   const AdmobConfig({
     required this.bannerAdID,
     required this.openAdID,
     required this.keywords,
+    this.openInterval = 8,
   });
 }
 
@@ -28,8 +30,13 @@ class HttpConfig {
 }
 
 xyzInit(AdmobConfig adconfig, HttpConfig httpconfig) async {
-  await SharedPreferencesService.init();
-  await initAdmob(adconfig.bannerAdID, adconfig.openAdID, adconfig.keywords);
-  initHttp(
+  await SharedPreferencesService.initialize();
+  await AdmobManager.initialize(
+    adconfig.bannerAdID,
+    adconfig.openAdID,
+    adconfig.keywords,
+    interval: adconfig.openInterval,
+  );
+  await HttpManager.initialize(
       httpconfig.scheme, httpconfig.port, httpconfig.host, httpconfig.prefix);
 }

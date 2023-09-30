@@ -1,12 +1,20 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
+import 'package:xyz_utils/http/http.dart';
 
 class XyzVideoPlayer extends StatefulWidget {
   final String url;
   final double aspectRatio;
-  const XyzVideoPlayer(
-      {super.key, required this.url, this.aspectRatio = 16 / 9.0});
+  final bool autoPlay;
+  final bool loop;
+  const XyzVideoPlayer({
+    super.key,
+    required this.url,
+    this.aspectRatio = 16 / 9.0,
+    this.autoPlay = true,
+    this.loop = false,
+  });
 
   @override
   State<StatefulWidget> createState() => _XyzVideoPlayerState();
@@ -22,13 +30,16 @@ class _XyzVideoPlayerState extends State<XyzVideoPlayer> {
       Uri.parse(
         widget.url,
       ),
+      httpHeaders: {
+        'User-Agent': HttpManager.userAgent,
+      },
     );
     videoPlayerController.initialize().then((value) {
       chewieController = ChewieController(
         videoPlayerController: videoPlayerController,
-        aspectRatio: 16 / 9,
-        autoPlay: true,
-        looping: false,
+        aspectRatio: widget.aspectRatio,
+        autoPlay: widget.autoPlay,
+        looping: widget.loop,
         showControlsOnInitialize: false,
       );
       setState(() {});

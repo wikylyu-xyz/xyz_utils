@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:xyz_utils/admob/admob_manager.dart';
-import 'package:xyz_utils/admob/config.dart';
 
 class AdmobAdaptiveBanner extends StatefulWidget {
   const AdmobAdaptiveBanner({Key? key}) : super(key: key);
@@ -17,7 +16,7 @@ class _AdmobAdaptiveBannerState extends State<AdmobAdaptiveBanner> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    if (AdmobManager.isEnabled()) {
+    if (AdmobManager.isEnabled) {
       _loadAd();
     }
   }
@@ -32,10 +31,10 @@ class _AdmobAdaptiveBannerState extends State<AdmobAdaptiveBanner> {
     }
 
     _anchoredAdaptiveAd = BannerAd(
-      adUnitId: bannerAdID,
+      adUnitId: AdmobManager.bannerID,
       size: size,
       request: AdManagerAdRequest(
-        keywords: adKeywords,
+        keywords: AdmobManager.keywords,
       ),
       listener: BannerAdListener(
         onAdLoaded: (Ad ad) {

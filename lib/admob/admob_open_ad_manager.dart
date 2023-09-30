@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:xyz_utils/admob/admob_manager.dart';
-import 'package:xyz_utils/admob/config.dart';
 
 class AdmobOpenAdManager {
   AppOpenAd? _appOpenAd;
@@ -9,18 +8,18 @@ class AdmobOpenAdManager {
   DateTime _lastLoadedTime = DateTime.fromMicrosecondsSinceEpoch(0);
 
   void loadAd() {
-    if (!AdmobManager.isEnabled()) {
+    if (!AdmobManager.isEnabled) {
       return;
     }
     if (DateTime.now().difference(_lastLoadedTime) <
-        const Duration(minutes: 8)) {
+        Duration(minutes: AdmobManager.openInterval)) {
       return;
     }
     AppOpenAd.load(
-      adUnitId: openAdID,
+      adUnitId: AdmobManager.openID,
       orientation: AppOpenAd.orientationPortrait,
       request: AdRequest(
-        keywords: adKeywords,
+        keywords: AdmobManager.keywords,
       ),
       adLoadCallback: AppOpenAdLoadCallback(
         onAdLoaded: (ad) {
@@ -41,7 +40,7 @@ class AdmobOpenAdManager {
   }
 
   void showAdIfAvailable() {
-    if (!AdmobManager.isEnabled()) {
+    if (!AdmobManager.isEnabled) {
       return;
     }
     if (!isAdAvailable) {

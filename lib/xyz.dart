@@ -7,12 +7,14 @@ class AdmobConfig {
   final String openAdID;
   final List<String> keywords;
   final int openInterval;
+  final bool children;
 
   const AdmobConfig({
     required this.bannerAdID,
     required this.openAdID,
     required this.keywords,
     this.openInterval = 8,
+    this.children = false,
   });
 }
 
@@ -36,6 +38,7 @@ xyzInit(AdmobConfig adconfig, HttpConfig httpconfig) async {
     adconfig.openAdID,
     adconfig.keywords,
     interval: adconfig.openInterval,
+    children: adconfig.children,
   );
   await HttpManager.initialize(
       httpconfig.scheme, httpconfig.port, httpconfig.host, httpconfig.prefix);

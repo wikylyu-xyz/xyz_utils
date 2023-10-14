@@ -18,11 +18,13 @@ void loadForm() {
 
 void setConsentEea() {}
 
-loadConsentInfoForm({bool testing = false}) async {
+loadConsentInfoForm(
+    {bool testing = false, List<String> testIdentifiers = const []}) async {
   final ConsentRequestParameters params;
   if (testing) {
     ConsentDebugSettings debugSettings = ConsentDebugSettings(
       debugGeography: DebugGeography.debugGeographyEea,
+      testIdentifiers: testIdentifiers,
     );
     params = ConsentRequestParameters(
       consentDebugSettings: debugSettings,

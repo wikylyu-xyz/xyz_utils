@@ -16,22 +16,19 @@ void loadForm() {
   );
 }
 
-void setConsentEea() {}
+void resetConsentInfo() {
+  ConsentInformation.instance.reset();
+}
 
-loadConsentInfoForm(
-    {bool testing = false, List<String> testIdentifiers = const []}) async {
-  final ConsentRequestParameters params;
-  if (testing) {
-    ConsentDebugSettings debugSettings = ConsentDebugSettings(
-      debugGeography: DebugGeography.debugGeographyEea,
-      testIdentifiers: testIdentifiers,
-    );
-    params = ConsentRequestParameters(
-      consentDebugSettings: debugSettings,
-    );
-  } else {
-    params = ConsentRequestParameters();
-  }
+void loadConsentInfoForm({List<String> testIdentifiers = const []}) {
+  ConsentDebugSettings debugSettings = ConsentDebugSettings(
+    debugGeography: DebugGeography.debugGeographyEea,
+    testIdentifiers: testIdentifiers,
+  );
+  final params = ConsentRequestParameters(
+    consentDebugSettings: debugSettings,
+  );
+
   ConsentInformation.instance.requestConsentInfoUpdate(
     params,
     () async {

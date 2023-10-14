@@ -1,3 +1,4 @@
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:xyz_utils/sharedpref.dart';
 
 class AdmobManager {
@@ -13,12 +14,20 @@ class AdmobManager {
   }
 
   static initialize(String bannerID, String openID, List<String> keywords,
-      {int interval = 8}) async {
+      {int interval = 8, bool children = false}) async {
     _bannerAdID = bannerID;
     _openAdID = openID;
     _adKeywords = keywords;
     _openInterval = interval;
     _enabled = !(SharedPreferencesService.prefs.getBool("Remove Ads") ?? false);
+
+    if (children) {
+      final RequestConfiguration requestConfiguration = RequestConfiguration(
+        tagForChildDirectedTreatment: TagForChildDirectedTreatment.yes,
+        maxAdContentRating: MaxAdContentRating.g,
+      );
+      MobileAds.instance.updateRequestConfiguration(requestConfiguration);
+    }
   }
 
   static bool get isEnabled => _enabled;

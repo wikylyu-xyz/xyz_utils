@@ -13,7 +13,7 @@ class AdmobManager {
     await SharedPreferencesService.prefs.setBool("Remove Ads", true);
   }
 
-  disableAds() {
+  static disableAds() {
     // temporarily disable ads
     _enabled = false;
   }

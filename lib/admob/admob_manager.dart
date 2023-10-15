@@ -13,6 +13,11 @@ class AdmobManager {
     await SharedPreferencesService.prefs.setBool("Remove Ads", true);
   }
 
+  disableAds() {
+    // temporarily disable ads
+    _enabled = false;
+  }
+
   static initialize(String bannerID, String openID, List<String> keywords,
       {int interval = 8, bool children = false}) async {
     _bannerAdID = bannerID;

@@ -14,7 +14,7 @@ downloadImage(String url) async {
     final savePath = appDocDir.path + path.basename(url);
     await Dio().download(url, savePath);
     final result =
-        await ImageGallerySaver.saveFile(savePath, isReturnPathOfIOS: true);
+        await ImageGallerySaver.saveFile(savePath, isReturnPathOfIOS: false);
     if (result != null) {
       ToastService.info("Saved");
     }

@@ -20,13 +20,17 @@ void resetConsentInfo() {
   ConsentInformation.instance.reset();
 }
 
-void loadConsentInfoForm({List<String> testIdentifiers = const []}) {
+void loadConsentInfoForm({
+  List<String> testIdentifiers = const [],
+  bool children = false,
+}) {
   ConsentDebugSettings debugSettings = ConsentDebugSettings(
     debugGeography: DebugGeography.debugGeographyEea,
     testIdentifiers: testIdentifiers,
   );
   final params = ConsentRequestParameters(
     consentDebugSettings: debugSettings,
+    tagForUnderAgeOfConsent: children,
   );
 
   ConsentInformation.instance.requestConsentInfoUpdate(

@@ -22,7 +22,7 @@ void resetConsentInfo() {
 
 void loadConsentInfoForm({
   List<String> testIdentifiers = const [],
-  bool children = false,
+  bool? children,
 }) {
   ConsentDebugSettings debugSettings = ConsentDebugSettings(
     debugGeography: DebugGeography.debugGeographyEea,

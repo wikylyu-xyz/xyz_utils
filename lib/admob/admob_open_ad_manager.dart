@@ -15,10 +15,7 @@ class AdmobOpenAdManager {
     if (!AdmobManager.isEnabled) {
       return;
     }
-    if (DateTime.now().difference(_lastLoadedTime) <
-        Duration(minutes: AdmobManager.openInterval)) {
-      return;
-    }
+
     AppOpenAd.load(
       adUnitId: AdmobManager.openID,
       orientation: AppOpenAd.orientationPortrait,
@@ -45,6 +42,11 @@ class AdmobOpenAdManager {
 
   void showAdIfAvailable() {
     if (!AdmobManager.isEnabled) {
+      return;
+    }
+    if (DateTime.now().difference(_lastLoadedTime) <
+        Duration(minutes: AdmobManager.openInterval)) {
+      debugPrint('Frequency limit');
       return;
     }
     if (!isAdAvailable) {

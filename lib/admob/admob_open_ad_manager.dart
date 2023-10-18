@@ -8,7 +8,7 @@ class AdmobOpenAdManager {
   bool isFirstAd = true;
   DateTime _lastShownTime = DateTime.now().add(
     Duration(
-      minutes: 2 - AdmobManager.openInterval,
+      minutes: 1 - AdmobManager.openInterval,
     ),
   );
 

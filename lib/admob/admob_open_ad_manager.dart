@@ -7,7 +7,7 @@ class AdmobOpenAdManager {
   bool _isShowingAd = false;
   DateTime _lastLoadedTime = DateTime.now().add(
     Duration(
-      minutes: -(AdmobManager.openInterval ~/ 2),
+      minutes: 2 - AdmobManager.openInterval,
     ),
   );
 

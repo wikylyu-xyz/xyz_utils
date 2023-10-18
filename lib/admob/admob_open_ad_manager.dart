@@ -50,9 +50,9 @@ class AdmobOpenAdManager {
       loadAd();
       return;
     }
-    if (DateTime.now().difference(_lastLoadedTime) <
-        Duration(minutes: AdmobManager.openInterval)) {
-      debugPrint('Frequency limit');
+    final diff = DateTime.now().difference(_lastLoadedTime);
+    if (diff < Duration(minutes: AdmobManager.openInterval)) {
+      debugPrint('Ad Frequency limit: ${diff.inSeconds}s');
       return;
     }
     if (_isShowingAd) {

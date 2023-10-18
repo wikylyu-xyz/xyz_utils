@@ -5,7 +5,8 @@ import 'package:xyz_utils/admob/admob_manager.dart';
 class AdmobOpenAdManager {
   AppOpenAd? _appOpenAd;
   bool _isShowingAd = false;
-  DateTime _lastLoadedTime = DateTime.now().add(
+  bool isFirstAd = true;
+  DateTime _lastShownTime = DateTime.now().add(
     Duration(
       minutes: 2 - AdmobManager.openInterval,
     ),
@@ -26,7 +27,6 @@ class AdmobOpenAdManager {
         onAdLoaded: (ad) {
           debugPrint('AppOpenAd loaded');
           _appOpenAd = ad;
-          _lastLoadedTime = DateTime.now();
         },
         onAdFailedToLoad: (error) {
           debugPrint('AppOpenAd failed to load: $error');
@@ -50,7 +50,7 @@ class AdmobOpenAdManager {
       loadAd();
       return;
     }
-    final diff = DateTime.now().difference(_lastLoadedTime);
+    final diff = DateTime.now().difference(_lastShownTime);
     if (diff < Duration(minutes: AdmobManager.openInterval)) {
       debugPrint('Ad Frequency limit: ${diff.inSeconds}s');
       return;
@@ -63,6 +63,7 @@ class AdmobOpenAdManager {
     _appOpenAd!.fullScreenContentCallback = FullScreenContentCallback(
       onAdShowedFullScreenContent: (ad) {
         _isShowingAd = true;
+        _lastShownTime = DateTime.now();
         debugPrint('$ad onAdShowedFullScreenContent');
       },
       onAdFailedToShowFullScreenContent: (ad, error) {

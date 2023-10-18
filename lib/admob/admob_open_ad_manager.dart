@@ -5,7 +5,11 @@ import 'package:xyz_utils/admob/admob_manager.dart';
 class AdmobOpenAdManager {
   AppOpenAd? _appOpenAd;
   bool _isShowingAd = false;
-  DateTime _lastLoadedTime = DateTime.fromMicrosecondsSinceEpoch(0);
+  DateTime _lastLoadedTime = DateTime.now().add(
+    Duration(
+      minutes: -(AdmobManager.openInterval ~/ 2),
+    ),
+  );
 
   void loadAd() {
     if (!AdmobManager.isEnabled) {

@@ -20,7 +20,7 @@ class AdmobManager {
 
   static initialize(String bannerID, String openID, List<String> keywords,
       {int interval = 8, bool children = false}) async {
-    await MobileAds.instance.initialize();
+    MobileAds.instance.initialize();
     _bannerAdID = bannerID;
     _openAdID = openID;
     _adKeywords = keywords;

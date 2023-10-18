@@ -44,14 +44,15 @@ class AdmobOpenAdManager {
     if (!AdmobManager.isEnabled) {
       return;
     }
-    if (DateTime.now().difference(_lastLoadedTime) <
-        Duration(minutes: AdmobManager.openInterval)) {
-      debugPrint('Frequency limit');
-      return;
-    }
+
     if (!isAdAvailable) {
       debugPrint('Tried to show ad before available.');
       loadAd();
+      return;
+    }
+    if (DateTime.now().difference(_lastLoadedTime) <
+        Duration(minutes: AdmobManager.openInterval)) {
+      debugPrint('Frequency limit');
       return;
     }
     if (_isShowingAd) {

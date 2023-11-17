@@ -92,10 +92,10 @@ class HttpManager {
 
   static dynamic handleResponse(http.Response r) {
     if (r.statusCode >= 400 && r.statusCode < 500) {
-      ToastService.error('Client Error');
+      ToastService.instance.error('Client Error');
       throw HttpException('Network Error', uri: r.request?.url);
     } else if (r.statusCode != 200) {
-      ToastService.error('Server Error');
+      ToastService.instance.error('Server Error');
       throw HttpException('Network Error', uri: r.request?.url);
     }
     final json = jsonDecode(r.body);
@@ -117,7 +117,7 @@ class HttpManager {
       }).timeout(const Duration(minutes: 5));
     } catch (e, s) {
       debugPrintStack(stackTrace: s);
-      ToastService.error('Network Error');
+      ToastService.instance.error('Network Error');
       rethrow;
     }
 
@@ -142,7 +142,7 @@ class HttpManager {
           .timeout(const Duration(minutes: 5));
     } catch (e, s) {
       debugPrintStack(stackTrace: s);
-      ToastService.error('Network Error');
+      ToastService.instance.error('Network Error');
       rethrow;
     }
 
@@ -167,7 +167,7 @@ class HttpManager {
           .timeout(const Duration(minutes: 5));
     } catch (e, s) {
       debugPrintStack(stackTrace: s);
-      ToastService.error('Network Error');
+      ToastService.instance.error('Network Error');
       rethrow;
     }
 
@@ -184,7 +184,7 @@ class HttpManager {
       }).timeout(const Duration(minutes: 5));
     } catch (e, s) {
       debugPrintStack(stackTrace: s);
-      ToastService.error('Network Error');
+      ToastService.instance.error('Network Error');
       rethrow;
     }
 

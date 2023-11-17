@@ -9,17 +9,17 @@ import 'package:path/path.dart' as path;
 
 downloadImage(String url) async {
   try {
-    ToastService.info("Downloading. Please wait");
+    ToastService.instance.info("Downloading. Please wait");
     final appDocDir = await getTemporaryDirectory();
     final savePath = appDocDir.path + path.basename(url);
     await Dio().download(url, savePath);
     final result =
         await ImageGallerySaver.saveFile(savePath, isReturnPathOfIOS: false);
     if (result != null) {
-      ToastService.info("Saved");
+      ToastService.instance.info("Saved");
     }
   } catch (e, s) {
-    ToastService.warn("Failed");
+    ToastService.instance.warn("Failed");
     debugPrintStack(stackTrace: s);
   }
 }

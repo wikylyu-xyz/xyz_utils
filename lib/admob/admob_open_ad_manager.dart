@@ -5,16 +5,18 @@ import 'package:xyz_utils/admob/admob_manager.dart';
 class AdmobOpenAdManager {
   AppOpenAd? _appOpenAd;
   bool _isShowingAd = false;
-  DateTime _lastLoadedTime = DateTime.fromMicrosecondsSinceEpoch(0);
+  bool isFirstAd = true;
+  DateTime _lastShownTime = DateTime.now().add(
+    Duration(
+      minutes: 1 - AdmobManager.openInterval,
+    ),
+  );
 
   void loadAd() {
     if (!AdmobManager.isEnabled) {
       return;
     }
-    if (DateTime.now().difference(_lastLoadedTime) <
-        Duration(minutes: AdmobManager.openInterval)) {
-      return;
-    }
+
     AppOpenAd.load(
       adUnitId: AdmobManager.openID,
       orientation: AppOpenAd.orientationPortrait,
@@ -25,7 +27,6 @@ class AdmobOpenAdManager {
         onAdLoaded: (ad) {
           debugPrint('AppOpenAd loaded');
           _appOpenAd = ad;
-          _lastLoadedTime = DateTime.now();
         },
         onAdFailedToLoad: (error) {
           debugPrint('AppOpenAd failed to load: $error');
@@ -43,9 +44,15 @@ class AdmobOpenAdManager {
     if (!AdmobManager.isEnabled) {
       return;
     }
+
     if (!isAdAvailable) {
       debugPrint('Tried to show ad before available.');
       loadAd();
+      return;
+    }
+    final diff = DateTime.now().difference(_lastShownTime);
+    if (diff < Duration(minutes: AdmobManager.openInterval)) {
+      debugPrint('Ad Frequency limit: ${diff.inSeconds}s');
       return;
     }
     if (_isShowingAd) {
@@ -56,6 +63,7 @@ class AdmobOpenAdManager {
     _appOpenAd!.fullScreenContentCallback = FullScreenContentCallback(
       onAdShowedFullScreenContent: (ad) {
         _isShowingAd = true;
+        _lastShownTime = DateTime.now();
         debugPrint('$ad onAdShowedFullScreenContent');
       },
       onAdFailedToShowFullScreenContent: (ad, error) {

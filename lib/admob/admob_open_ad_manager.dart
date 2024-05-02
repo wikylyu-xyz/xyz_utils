@@ -19,7 +19,6 @@ class AdmobOpenAdManager {
 
     AppOpenAd.load(
       adUnitId: AdmobManager.openID,
-      orientation: AppOpenAd.orientationPortrait,
       request: AdRequest(
         keywords: AdmobManager.keywords,
       ),

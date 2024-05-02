@@ -3,7 +3,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:xyz_utils/admob/admob_manager.dart';
 
 class AdmobAdaptiveBanner extends StatefulWidget {
-  const AdmobAdaptiveBanner({Key? key}) : super(key: key);
+  const AdmobAdaptiveBanner({super.key});
 
   @override
   createState() => _AdmobAdaptiveBannerState();

@@ -1,9 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:image_gallery_saver_plus/image_gallery_saver_plus.dart';
 import 'package:xyz_utils/http/http.dart';
 import 'package:xyz_utils/toast.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as path;
 
@@ -13,8 +13,8 @@ downloadImage(String url) async {
     final appDocDir = await getTemporaryDirectory();
     final savePath = appDocDir.path + path.basename(url);
     await Dio().download(url, savePath);
-    final result =
-        await ImageGallerySaver.saveFile(savePath, isReturnPathOfIOS: false);
+    final result = await ImageGallerySaverPlus.saveFile(savePath,
+        isReturnPathOfIOS: false);
     if (result != null) {
       ToastService.instance.info("Saved");
     }

@@ -3,6 +3,8 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:xyz_utils/admob/admob_manager.dart';
 
 class AdmobAdaptiveBanner extends StatefulWidget {
+  static bool isShowing = false;
+
   const AdmobAdaptiveBanner({super.key});
 
   @override
@@ -12,6 +14,12 @@ class AdmobAdaptiveBanner extends StatefulWidget {
 class _AdmobAdaptiveBannerState extends State<AdmobAdaptiveBanner> {
   BannerAd? _anchoredAdaptiveAd;
   bool _isLoaded = false;
+
+  @override
+  void initState() {
+    super.initState();
+    AdmobAdaptiveBanner.isShowing = true;
+  }
 
   @override
   void didChangeDependencies() {
@@ -73,5 +81,6 @@ class _AdmobAdaptiveBannerState extends State<AdmobAdaptiveBanner> {
   void dispose() {
     super.dispose();
     _anchoredAdaptiveAd?.dispose();
+    AdmobAdaptiveBanner.isShowing = false;
   }
 }

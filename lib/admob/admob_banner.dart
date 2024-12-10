@@ -3,6 +3,8 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:xyz_utils/admob/admob_manager.dart';
 
 class AdmobBanner extends StatefulWidget {
+  static bool isShowing = false;
+
   const AdmobBanner({
     super.key,
   });
@@ -18,6 +20,7 @@ class _AdmobBannerState extends State<AdmobBanner> {
   @override
   void initState() {
     super.initState();
+    AdmobBanner.isShowing = true;
 
     if (AdmobManager.isEnabled) {
       adBanner = AdManagerBannerAd(
@@ -40,6 +43,7 @@ class _AdmobBannerState extends State<AdmobBanner> {
   void dispose() {
     adBanner?.dispose();
     super.dispose();
+    AdmobBanner.isShowing = false;
   }
 
   @override

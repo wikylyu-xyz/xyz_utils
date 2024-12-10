@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:xyz_utils/admob/admob_adaptive_banner.dart';
+import 'package:xyz_utils/admob/admob_banner.dart';
 import 'package:xyz_utils/admob/admob_manager.dart';
 
 class AdmobOpenAdManager {
@@ -40,7 +42,9 @@ class AdmobOpenAdManager {
   }
 
   void showAdIfAvailable() {
-    if (!AdmobManager.isEnabled) {
+    if (!AdmobManager.isEnabled ||
+        AdmobAdaptiveBanner.isShowing ||
+        AdmobBanner.isShowing) {
       return;
     }
 

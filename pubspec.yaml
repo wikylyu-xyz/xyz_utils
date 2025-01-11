@@ -1,6 +1,6 @@
 name: xyz_utils
 description: A new Flutter package project.
-version: 0.9.4
+version: 0.9.5
 homepage: https://github.com/wikylyu-xyz/xyz_utils
 
 environment:
@@ -10,18 +10,18 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  fluttertoast: ^8.2.8
+  fluttertoast: ^8.2.10
   in_app_review: ^2.0.10
-  shared_preferences: ^2.3.3
+  shared_preferences: ^2.3.5
   google_mobile_ads: ^5.2.0
   image_gallery_saver_plus: ^3.0.5
   dio: ^5.7.0
   path_provider: ^2.1.5
   path: ^1.9.1
   http: ^1.2.2
-  chewie: ^1.8.5
+  chewie: ^1.9.0
   video_player: ^2.9.2
-  package_info_plus: ^8.1.1
+  package_info_plus: ^8.1.2
   cached_network_image: ^3.4.1
 
 dev_dependencies:

@@ -23,11 +23,13 @@ class HttpConfig {
   final int? port;
   final String host;
   final String prefix;
+  final bool redirect;
   const HttpConfig({
     required this.scheme,
     required this.port,
     required this.host,
     required this.prefix,
+    this.redirect = false,
   });
 }
 
@@ -41,5 +43,9 @@ xyzInit(AdmobConfig adconfig, HttpConfig httpconfig) async {
     children: adconfig.children,
   );
   await HttpManager.initialize(
-      httpconfig.scheme, httpconfig.port, httpconfig.host, httpconfig.prefix);
+    httpconfig.scheme,
+    httpconfig.port,
+    httpconfig.host,
+    httpconfig.prefix,
+  );
 }

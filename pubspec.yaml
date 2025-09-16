@@ -1,6 +1,6 @@
 name: xyz_utils
 description: A new Flutter package project.
-version: 0.9.6
+version: 0.9.7
 homepage: https://github.com/wikylyu-xyz/xyz_utils
 
 environment:
@@ -21,8 +21,9 @@ dependencies:
   http: ^1.4.0
   chewie: ^1.12.1
   video_player: ^2.10.0
-  package_info_plus: ^8.3.0
+  package_info_plus: ^9.0.0
   cached_network_image: ^3.4.1
+  flutter_cache_manager: ^3.4.1
 
 dev_dependencies:
   flutter_test:

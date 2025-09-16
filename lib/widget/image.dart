@@ -2,10 +2,11 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:image_gallery_saver_plus/image_gallery_saver_plus.dart';
+import 'package:path/path.dart' as path;
+import 'package:path_provider/path_provider.dart';
 import 'package:xyz_utils/http/http.dart';
 import 'package:xyz_utils/toast.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:path/path.dart' as path;
+import 'package:xyz_utils/widget/cache.dart';
 
 downloadImage(String url) async {
   try {
@@ -42,7 +43,6 @@ class XyzImage extends CachedNetworkImage {
     super.alignment = Alignment.center,
     super.repeat = ImageRepeat.noRepeat,
     super.matchTextDirection = false,
-    super.cacheManager,
     super.useOldImageOnUrlChange = false,
     super.color,
     super.filterQuality = FilterQuality.low,
@@ -59,6 +59,7 @@ class XyzImage extends CachedNetworkImage {
                 ? HttpManager.userAgent
                 : 'Mozilla/5.0 (Macintosh; Intel Mac OS X 14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36',
           },
+          cacheManager: RedirectCacheManager(),
         );
 }
 

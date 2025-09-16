@@ -6,7 +6,6 @@ import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
 import 'package:xyz_utils/http/http.dart';
 import 'package:xyz_utils/toast.dart';
-import 'package:xyz_utils/widget/cache.dart';
 
 downloadImage(String url) async {
   try {
@@ -53,13 +52,15 @@ class XyzImage extends CachedNetworkImage {
     super.cacheKey,
     super.maxWidthDiskCache,
     super.maxHeightDiskCache,
+    super.cacheManager,
   }) : super(
           httpHeaders: {
+            'Accept': '*/*',
             'User-Agent': imageUrl.contains('wikylyu.xyz')
                 ? HttpManager.userAgent
-                : 'Mozilla/5.0 (Macintosh; Intel Mac OS X 14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36',
+                : 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36 Edg/139.0.0.0',
           },
-          cacheManager: RedirectCacheManager(),
+          // cacheManager: RedirectCacheManager(),
         );
 }
 
